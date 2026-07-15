@@ -286,7 +286,7 @@ const AdminDashboard = () => {
   // Export consultations leads to CSV
   const handleExportCSV = () => {
     const accessToken = localStorage.getItem('access_token');
-    window.open(`http://localhost:5000/api/consultations/export_csv/?token=${accessToken}`, '_blank');
+    window.open(`/api/consultations/export_csv/?token=${accessToken}`, '_blank');
   };
 
   const getFilteredConsultations = () => {
