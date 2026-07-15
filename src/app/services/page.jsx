@@ -1,0 +1,59 @@
+"use client";
+
+import React from 'react';
+import Link from 'next/link';
+import { services } from '@/data/services';
+import { ShieldCheck, Cpu, Scale, FileText, Award, Globe2, ChevronRight } from 'lucide-react';
+
+const iconMap = {
+  ShieldAlert: ShieldCheck,
+  Tags: Award,
+  FileText: FileText,
+  Cpu: Cpu,
+  Globe: Globe2,
+  Scale: Scale,
+};
+
+const Services = () => {
+  const displayServices = services;
+
+  return (
+    <div className="page-enter py-16 bg-[#F8F5F0] dark:bg-[#121110] min-h-screen">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 space-y-16">
+        
+        {/* Header */}
+        <div className="text-center space-y-3">
+          <span className="text-[#8B6B57] uppercase tracking-[0.25em] text-xs font-semibold block">Legal Capabilities</span>
+          <h1 className="text-4xl sm:text-5xl font-serif font-medium text-[#171717] dark:text-[#F8F5F0]">IP Practice Directory</h1>
+          <p className="text-[#6D6258] dark:text-[#C9C1B5] text-sm max-w-2xl mx-auto font-normal leading-relaxed">Click through any sector to explore detailed timelines, required disclosures, and corporate registry pricing.</p>
+        </div>
+
+        {/* Directory Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pt-4">
+          {displayServices.map((s) => {
+            const Icon = iconMap[s.icon] || ShieldCheck;
+            return (
+              <div key={s.slug} className="card-premium flex flex-col justify-between group">
+                <div className="space-y-6">
+                  <div className="inline-flex p-3.5 bg-[#F8F5F0] dark:bg-[#252220] text-[#8B6B57] rounded-full border border-[#DDD5C8] dark:border-slate-800 transition-colors duration-300">
+                    <Icon size={20} strokeWidth={1.5} />
+                  </div>
+                  <h3 className="text-2xl font-serif font-medium text-[#171717] dark:text-[#F8F5F0] transition-colors duration-300 group-hover:text-[#8B6B57]">{s.name}</h3>
+                  <p className="text-sm text-[#6D6258] dark:text-[#C9C1B5] leading-relaxed font-normal">{s.short_desc}</p>
+                </div>
+                <div className="border-t border-[#DDD5C8]/40 dark:border-slate-850 mt-6 pt-6">
+                  <Link href={`/services/${s.slug}`} className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#8B6B57] hover:text-[#171717] dark:hover:text-white transition-colors">
+                    Explore practice specifics <ChevronRight size={14} />
+                  </Link>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+      </div>
+    </div>
+  );
+};
+
+export default Services;
