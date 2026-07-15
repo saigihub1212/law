@@ -43,11 +43,15 @@ export const POST = withDb(async (req) => {
     return NextResponse.json({ detail: 'Name, email, date, time, and message are required.' }, { status: 400 });
   }
 
+  const normalizedEmail = String(email).trim().toLowerCase();
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(normalizedEmail)) {
+    return NextResponse.json({ detail: 'Please enter a valid email address.' }, { status: 400 });
+  }
+
   if (!isValidDateString(date)) {
     return NextResponse.json({ detail: 'Please select a valid consultation date.' }, { status: 400 });
   }
-
-  const normalizedEmail = String(email).trim().toLowerCase();
   const selectedDate = new Date(`${date}T00:00:00`);
   const today = new Date();
   today.setHours(0, 0, 0, 0);

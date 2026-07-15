@@ -14,6 +14,11 @@ export const POST = withDb(async (req) => {
     return NextResponse.json({ detail: 'Name, email, and message are required.' }, { status: 400 });
   }
 
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(String(email).trim().toLowerCase())) {
+    return NextResponse.json({ detail: 'Please enter a valid email address.' }, { status: 400 });
+  }
+
   const contact = await Contact.create({
     name, email, phone, subject, message,
     type: type || 'CONTACT',
